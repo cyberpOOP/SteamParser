@@ -1,0 +1,23 @@
+{
+  "name": "steamparser",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/cyberpOOP/SteamParser.git"
+  },
+  "author": "@cyberpOOP",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/cyberpOOP/SteamParser/issues"
+  },
+  "homepage": "https://github.com/cyberpOOP/SteamParser#readme",
+  "dependencies": {
+    "cheerio": "^1.0.0-rc.12",
+    "nodemon": "^2.0.21"
+  }
+}
