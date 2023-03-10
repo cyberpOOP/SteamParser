@@ -1,64 +1,18 @@
-const https = require('https');
-const reader = require("xlsx");
+const axios = require('axios');
+
+let url = ['https://steamcommunity.com/market/priceoverview/?market_hash_name=','&appid=730&currency=18']
+
+module.exports.request = (items)=>{
 
 
-
-module.exports.request = function (links){
-    return new Promise((resolve)=>{
-
-        let item = [];
-
-        links.forEach((el, i)=>{
-            https.get(`https://steamcommunity.com/market/priceoverview/?market_hash_name=${el}&appid=730&currency=18`,
-                async (resp)=>{
-                    let data = '';
-
-                    resp.on('data', (chunk)=>{
-                        data += chunk;
-                    })
-
-                    await resp.on('end', async()=>{
-                        item.push(data);
-                    });
-
-                    if(item.length === links.length)
-                        resolve(item);
-                });
+    items.forEach(async(el)=>{
+        const response = await axios.get(url[0]+el.Link.split('730/')[1]+url[1]);
+        console.log(el.Name+" "+response.data.lowest_price);
+        response.data.lowest_price.split(',').reduce((a,b)=>{
+            el.CostNow = parseFloat(`${a}.${b.split('₴')[0]}`);
         });
-        //end callback
-    });
-};
-
-
-module.exports.read = function (){
-    return new Promise((resolve, reject)=>{
-
-        let items = [];
-        try{
-            const file = reader.readFile('./table.xlsx');
-
-            const sheets = file.SheetNames
-
-            for(let i = 0; i < sheets.length; i++)
-            {
-                const temp = reader.utils.sheet_to_json(
-                    file.Sheets[file.SheetNames[i]])
-                temp.forEach((res) => {
-                    items.push({
-                        link: res.Link,
-                        name: res.Name,
-                        cost1: res.CostBuy,
-                        cost2: res.CostNow,
-                        amount: res.Amount
-                    });
-                })
-            }
-
-            resolve(items);
-        }
-        catch (err){
-            reject(err);
-        }
+        console.log(el);
 
     });
-};
+
+}
