@@ -17,10 +17,11 @@ handler.read().then((items)=>{
             cost = '';
             JSON.parse(result).lowest_price.split(',').reduce((a, b)=>{
                 cost = `${a}.${b.split('₴')[0]}`;
-                console.log(a+" "+b.split('₴')[0]); //working with it only
+                //console.log(a+" "+b.split('₴')[0]);
+                items[i].cost2 = parseFloat(cost);
             })
 
-            items[i].cost2 = parseFloat(cost);
+
 
 
         })

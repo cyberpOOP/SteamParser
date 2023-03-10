@@ -35,7 +35,7 @@ module.exports.read = function (){
 
         let items = [];
         try{
-            const file = reader.readFile('./test.xlsx');
+            const file = reader.readFile('./table.xlsx');
 
             const sheets = file.SheetNames
 
