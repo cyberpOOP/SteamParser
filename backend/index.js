@@ -1,9 +1,4 @@
 const handler = require('./handlers.js');
-const {quiet} = require("nodemon/lib/utils");
-
-
-
-
 
 
 handler.read().then((items)=>{
@@ -12,11 +7,21 @@ handler.read().then((items)=>{
         links.push(el.Link.split('730/')[1]);
     });
 
+
     handler.request(links).then((res)=>{
 
-        console.log(res);
+        res.forEach(async(result)=>{
+            await items.forEach((el)=>{
+                el.CostNow = parseFloat(JSON.parse(result).lowest_price.split('₴')[0]);
+            })
 
+
+        })
+
+    }).finally(()=>{
+        console.log(items);
     });
+
 
 }).catch(err => console.log(err));
 
