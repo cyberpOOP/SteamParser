@@ -18,6 +18,7 @@
   },
   "homepage": "https://github.com/cyberpOOP/SteamParser#readme",
   "dependencies": {
-    "nodemon": "^2.0.21"
+    "nodemon": "^2.0.21",
+    "xlsx": "^0.18.5"
   }
 }

@@ -1,7 +1,22 @@
 const handler = require('./handlers.js');
+const {quiet} = require("nodemon/lib/utils");
 
-let names = ['Clutch%20Case', 'Rio%202022%20Contenders%20Sticker%20Capsule', 'Sticker%20%7C%20Infinite%20Triangle%20%28Holo%29'];
 
-handler.request().then((res)=>{
-    console.log(res);
+
+
+
+
+handler.read().then((items)=>{
+    let links = [];
+    items.forEach((el, i)=>{
+        links.push(el.Link.split('730/')[1]);
+    });
+
+    handler.request(links).then((res)=>{
+
+        console.log(res);
+
+    });
+
 }).catch(err => console.log(err));
+
