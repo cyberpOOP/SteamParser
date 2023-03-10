@@ -44,7 +44,13 @@ module.exports.read = function (){
                 const temp = reader.utils.sheet_to_json(
                     file.Sheets[file.SheetNames[i]])
                 temp.forEach((res) => {
-                    items.push(res);
+                    items.push({
+                        link: res.Link,
+                        name: res.Name,
+                        cost1: res.CostBuy,
+                        cost2: res.CostNow,
+                        amount: res.Amount
+                    });
                 })
             }
 

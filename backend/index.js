@@ -1,19 +1,26 @@
 const handler = require('./handlers.js');
 
+let links;
 
 handler.read().then((items)=>{
-    let links = [];
-    items.forEach((el, i)=>{
-        links.push(el.Link.split('730/')[1]);
+    links = [];
+    items.forEach((el)=>{
+        links.push(el.link.split('730/')[1]);
     });
 
 
     handler.request(links).then((res)=>{
 
-        res.forEach(async(result)=>{
-            await items.forEach((el)=>{
-                el.CostNow = parseFloat(JSON.parse(result).lowest_price.split('₴')[0]);
+        let cost = '';
+
+        res.forEach((result, i)=>{
+            cost = '';
+            JSON.parse(result).lowest_price.split(',').reduce((a, b)=>{
+                cost = `${a}.${b.split('₴')[0]}`;
+                console.log(a+" "+b.split('₴')[0]); //working with it only
             })
+
+            items[i].cost2 = parseFloat(cost);
 
 
         })
