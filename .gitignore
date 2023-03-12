@@ -2,3 +2,5 @@
 .idea/
 /backend/table.xlsx
 .~lock.test.xlsx#
+/backend/code_stash.js
+table.xlsx
